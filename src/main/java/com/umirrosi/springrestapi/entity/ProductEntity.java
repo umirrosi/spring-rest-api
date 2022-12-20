@@ -32,6 +32,9 @@ public class ProductEntity {
     @Column(name = "category_id", nullable = false)
     private int categoryId;
 
+    @Column(name = "category_name", nullable = false)
+    private String categoryName;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id", insertable = false, updatable = false)
     private CategoryEntity category;

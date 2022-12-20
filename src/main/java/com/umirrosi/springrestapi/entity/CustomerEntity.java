@@ -1,6 +1,9 @@
 package com.umirrosi.springrestapi.entity;
 
+import com.umirrosi.springrestapi.model.CustomerModel;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.BeanUtils;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +14,7 @@ import java.sql.Date;
 @Data
 @Entity
 @Table(name = "customer")
+@NoArgsConstructor
 public class CustomerEntity {
     @Id
     @Column(name = "id", length = 36)
@@ -33,4 +37,8 @@ public class CustomerEntity {
 
     @Column(name = "dateOfPlace", length = 120)
     private String dateOfPlace;
+
+    public CustomerEntity(CustomerModel model) {
+        BeanUtils.copyProperties(model, this);
+    }
 }
