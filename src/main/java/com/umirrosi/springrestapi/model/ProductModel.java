@@ -24,6 +24,8 @@ public class ProductModel {
         this.name = entity.getName();
         this.price = entity.getPrice();
         this.categoryId = entity.getCategoryId();*/
+
+
         BeanUtils.copyProperties(entity, this);
         if(entity.getCategory() != null) {
             this.categoryName = entity.getCategory().getName();
