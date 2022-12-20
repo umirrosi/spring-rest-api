@@ -1,23 +1,35 @@
 package com.umirrosi.springrestapi.entity;
 
+import com.umirrosi.springrestapi.model.CategoryModel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.BeanUtils;
 
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Entity
-@Table(name = "category")
+@Table(name = "category_tab")
 public class CategoryEntity {
     @Id
-    @Column(name = "id", length = 36)
-    private int categoryId;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private int id;
 
-    @Column(name = "code", length = 120)
-    private  String code;
+    @Column(name = "category_code", length = 20, nullable = false)
+    private String code;
 
-    @Column(name = "category", length = 120)
-    private String category;
+    @Column(name = "category_name", length = 100, nullable = false)
+    private String name;
+
+    @OneToMany(mappedBy = "category")
+    private Set<ProductEntity> products = new HashSet<>();
+
+    public CategoryEntity(CategoryModel model) {
+        BeanUtils.copyProperties(model, this);
+    }
 }

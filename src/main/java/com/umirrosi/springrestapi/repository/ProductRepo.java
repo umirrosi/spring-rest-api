@@ -3,6 +3,9 @@ package com.umirrosi.springrestapi.repository;
 
 import com.umirrosi.springrestapi.entity.ProductEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ProductRepository extends JpaRepository<ProductEntity, String> {
+@Repository
+public interface ProductRepo extends JpaRepository<ProductEntity, Integer> {
 }
+
