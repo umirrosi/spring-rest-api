@@ -1,22 +1,24 @@
 package com.umirrosi.springrestapi.model;
 
 import com.umirrosi.springrestapi.entity.CustomerEntity;
+import com.umirrosi.springrestapi.entity.EmployeeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Column;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import java.sql.Date;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerModel {
+public class EmployeeModel {
     private Long id;
-    private String fullName;
+    private String employeeName;
     private String address;
     private String gender;
 
@@ -27,9 +29,9 @@ public class CustomerModel {
     private String city;
     private String country;
     private String postalCode;
+    private String notes;
 
-    public CustomerModel(CustomerEntity entity) {
+    public EmployeeModel(EmployeeEntity entity) {
         BeanUtils.copyProperties(entity, this);
     }
 }
-

@@ -17,7 +17,10 @@ import java.util.Set;
 @Table(name = "category_tab")
 public class CategoryEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @TableGenerator(name = "category_id_generator", table = "sequence_tab",
+            pkColumnName = "gen_name", valueColumnName = "gen_value",
+            pkColumnValue="category_id", initialValue=0, allocationSize=0)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "category_id_generator")
     private int id;
 
     @Column(name = "category_code", length = 20, nullable = false)
@@ -33,3 +36,4 @@ public class CategoryEntity {
         BeanUtils.copyProperties(model, this);
     }
 }
+

@@ -1,6 +1,7 @@
 package com.umirrosi.springrestapi.entity;
 
 import com.umirrosi.springrestapi.model.CustomerModel;
+import com.umirrosi.springrestapi.model.SupplierModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,36 +11,28 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+//employee,shipper,supplier
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "customer_tab")
-public class CustomerEntity {
+@Table(name = "supplier_tab")
+public class SupplierEntity {
     @Id
-    @TableGenerator(name = "customer_id_generator", table = "sequence_tab",
+    @TableGenerator(name = "supplier_id_generator", table = "sequence_tab",
             pkColumnName = "gen_name", valueColumnName = "gen_value",
-            pkColumnValue="customer_id", initialValue=0, allocationSize=0)
-
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "customer_id_generator")
+            pkColumnValue="supplier_id", initialValue=0, allocationSize=0)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "supplier_id_generator")
     private Long id;
 
-    @Column(name = "customer_name", length = 100, nullable = false)
-    private String fullName;
+    @Column(name = "supplier_name", length = 100, nullable = false)
+    private String supplierName;
 
+    @Column(name = "contact_name", length = 100, nullable = false)
+    private String contactName;
     @Column(name = "address", length = 200)
     private String address;
-
-    @Column(name = "gender", length = 10, nullable = false)
-    private String gender;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "date_of_birth")
-    private Date dateOfBirth;
-
-    @Column(name = "place_of_birth")
-    private String placeOfBirth;
 
     @Column(name = "city", length = 100)
     private String city;
@@ -50,10 +43,13 @@ public class CustomerEntity {
     @Column(name = "postal_code", length = 10)
     private String postalCode;
 
-    @OneToMany(mappedBy = "customer")
-    private Set<PurchaseOrderEntity> purchaseOrder = new HashSet<>();
+    @Column(name = "phone", length = 20)
+    private String phone;
 
-    public CustomerEntity(CustomerModel model) {
+    @OneToMany(mappedBy = "supplier")
+    private Set<ProductEntity> products = new HashSet<>();
+
+    public SupplierEntity(SupplierModel model) {
         BeanUtils.copyProperties(model, this);
     }
 }
