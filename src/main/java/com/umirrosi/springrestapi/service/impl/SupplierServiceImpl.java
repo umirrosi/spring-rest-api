@@ -1,8 +1,6 @@
 package com.umirrosi.springrestapi.service.impl;
 
-import com.umirrosi.springrestapi.entity.CategoryEntity;
 import com.umirrosi.springrestapi.entity.SupplierEntity;
-import com.umirrosi.springrestapi.model.CategoryModel;
 import com.umirrosi.springrestapi.model.SupplierModel;
 import com.umirrosi.springrestapi.repository.SupplierRepo;
 import com.umirrosi.springrestapi.service.SupplierService;

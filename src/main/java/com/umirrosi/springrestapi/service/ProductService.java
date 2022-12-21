@@ -1,6 +1,5 @@
 package com.umirrosi.springrestapi.service;
 
-import com.umirrosi.springrestapi.entity.ProductEntity;
 import com.umirrosi.springrestapi.model.ProductModel;
 
 import java.util.List;
