@@ -25,6 +25,10 @@ public class PurchaseOrderDetailEntity {
     @Column(name = "po_id")
     private Integer poId;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "po_id", insertable = false, updatable = false)
+    private PurchaseOrderEntity purchaseOrder;
+
     @Column(name = "product_id", nullable = false)
     private Long productId;
 

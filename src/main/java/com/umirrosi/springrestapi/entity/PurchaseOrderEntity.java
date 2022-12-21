@@ -9,6 +9,8 @@ import org.springframework.beans.BeanUtils;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -54,6 +56,9 @@ public class PurchaseOrderEntity {
 
     @Column(name = "total_amount", nullable = false)
     private Double totalAmount;
+
+    @OneToMany(mappedBy = "purchaseOrder")
+    private Set<PurchaseOrderDetailEntity> purchaseOrderDetail = new HashSet<>();
 
     public PurchaseOrderEntity(PurchaseOrderModel model) {
         BeanUtils.copyProperties(model, this);
