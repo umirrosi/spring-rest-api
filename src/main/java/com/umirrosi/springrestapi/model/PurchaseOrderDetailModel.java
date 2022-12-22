@@ -8,19 +8,21 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 
 import javax.persistence.Column;
+import java.io.Serializable;
+
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class PurchaseOrderDetailModel {
-    private Integer id;
-    private Integer poId;
-    private Integer productId;
+@NoArgsConstructor
+public class PurchaseOrderDetailModel implements Serializable {
+    private Long id;
+    private Long poId;
+    private Long productId;
     private Double quantity;
     private Double price;
     private Double subAmount;
 
-    public PurchaseOrderDetailModel(PurchaseOrderDetailEntity entity) {
-        BeanUtils.copyProperties(entity, this);
+    public PurchaseOrderDetailModel(PurchaseOrderDetailEntity entity){
+        BeanUtils.copyProperties(entity,this);
     }
 }

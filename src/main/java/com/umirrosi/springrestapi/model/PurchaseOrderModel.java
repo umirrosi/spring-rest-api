@@ -11,24 +11,30 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class PurchaseOrderModel {
-    private Integer id;
+@NoArgsConstructor
+public class PurchaseOrderModel implements Serializable {
+    private Long id;
     private String poCode;
-    private Integer customerId;
-    private Integer employeeId;
-    private Integer shipperId;
+    private Long customerId;
+    private Long employeeId;
+    private Long shipperId;
 
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date poDate;
+
     private Double totalAmount;
 
-    public PurchaseOrderModel(PurchaseOrderEntity entity) {
-        BeanUtils.copyProperties(entity, this);
+    private List<PurchaseOrderDetailModel> details = new ArrayList<PurchaseOrderDetailModel>();
+
+    public PurchaseOrderModel (PurchaseOrderEntity entity){
+        BeanUtils.copyProperties(entity,this);
     }
 }

@@ -1,9 +1,9 @@
 package com.umirrosi.springrestapi.service.impl;
 
-import com.umirrosi.springrestapi.entity.SupplierEntity;
-import com.umirrosi.springrestapi.model.SupplierModel;
-import com.umirrosi.springrestapi.repository.SupplierRepo;
-import com.umirrosi.springrestapi.service.SupplierService;
+import com.umirrosi.springrestapi.entity.EmployeeEntity;
+import com.umirrosi.springrestapi.model.EmployeeModel;
+import com.umirrosi.springrestapi.repository.EmployeeRepo;
+import com.umirrosi.springrestapi.service.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,39 +15,38 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class SupplierServiceImpl implements SupplierService {
-
-    private SupplierRepo repo;
+public class EmployeeServiceImpl implements EmployeeService {
+    private EmployeeRepo repo;
 
     @Autowired
-    public SupplierServiceImpl(SupplierRepo repo) {
+    public EmployeeServiceImpl(EmployeeRepo repo){
         this.repo = repo;
     }
 
     @Override
-    public List<SupplierModel> getAll() {
-        return this.repo.findAll().stream().map(SupplierModel::new)
+    public List<EmployeeModel> getAll() {
+        return this.repo.findAll().stream().map(EmployeeModel::new)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Optional<SupplierModel> getById(Long id) {
+    public Optional<EmployeeModel> getById(Long id) {
         if(id == 0) {
             return Optional.empty();
         }
-        Optional<SupplierEntity> result = this.repo.findById(id);
-        return result.map(SupplierModel::new);
+        Optional<EmployeeEntity> result = this.repo.findById(id);
+        return result.map(EmployeeModel::new);
     }
 
     @Override
-    public Optional<SupplierModel> save(SupplierModel model) {
+    public Optional<EmployeeModel> save(EmployeeModel model) {
         if(model == null) {
             return Optional.empty();
         }
-        SupplierEntity entity = new SupplierEntity(model);
+        EmployeeEntity entity = new EmployeeEntity(model);
         try {
             this.repo.save(entity);
-            return Optional.of(new SupplierModel(entity));
+            return Optional.of(new EmployeeModel(entity));
         }catch (Exception e){
             log.error("Category save is failed, error: {}", e.getMessage());
             return Optional.empty();
@@ -55,12 +54,12 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
-    public Optional<SupplierModel> update(Long id, SupplierModel model) {
+    public Optional<EmployeeModel> update(Long id, EmployeeModel model) {
         if(id == 0) {
             return Optional.empty();
         }
 
-        SupplierEntity result = this.repo.findById(id).orElse(null);
+        EmployeeEntity result = this.repo.findById(id).orElse(null);
         if(result == null){
             return Optional.empty();
         }
@@ -69,7 +68,7 @@ public class SupplierServiceImpl implements SupplierService {
         BeanUtils.copyProperties(model, result);
         try {
             this.repo.save(result);
-            return Optional.of(new SupplierModel(result));
+            return Optional.of(new EmployeeModel(result));
         }catch (Exception e){
             log.error("Category update is failed, error: {}", e.getMessage());
             return Optional.empty();
@@ -77,22 +76,23 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
-    public Optional<SupplierModel> delete(Long id) {
+    public Optional<EmployeeModel> delete(Long id) {
         if(id == 0) {
             return Optional.empty();
         }
 
-        SupplierEntity result = this.repo.findById(id).orElse(null);
+        EmployeeEntity result = this.repo.findById(id).orElse(null);
         if(result == null){
             return Optional.empty();
         }
 
         try {
             this.repo.delete(result);
-            return Optional.of(new SupplierModel(result));
+            return Optional.of(new EmployeeModel(result));
         }catch (Exception e){
             log.error("Category delete is failed, error: {}", e.getMessage());
             return Optional.empty();
         }
     }
 }
+

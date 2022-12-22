@@ -1,9 +1,9 @@
 package com.umirrosi.springrestapi.service.impl;
 
-import com.umirrosi.springrestapi.entity.SupplierEntity;
-import com.umirrosi.springrestapi.model.SupplierModel;
-import com.umirrosi.springrestapi.repository.SupplierRepo;
-import com.umirrosi.springrestapi.service.SupplierService;
+import com.umirrosi.springrestapi.entity.ShipperEntity;
+import com.umirrosi.springrestapi.model.ShipperModel;
+import com.umirrosi.springrestapi.repository.ShipperRepo;
+import com.umirrosi.springrestapi.service.ShipperService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,39 +15,38 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class SupplierServiceImpl implements SupplierService {
-
-    private SupplierRepo repo;
+public class ShipperServiceImpl implements ShipperService {
+    private ShipperRepo repo;
 
     @Autowired
-    public SupplierServiceImpl(SupplierRepo repo) {
+    public ShipperServiceImpl(ShipperRepo repo){
         this.repo = repo;
     }
 
     @Override
-    public List<SupplierModel> getAll() {
-        return this.repo.findAll().stream().map(SupplierModel::new)
+    public List<ShipperModel> getAll() {
+        return this.repo.findAll().stream().map(ShipperModel::new)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Optional<SupplierModel> getById(Long id) {
+    public Optional<ShipperModel> getById(Long id) {
         if(id == 0) {
             return Optional.empty();
         }
-        Optional<SupplierEntity> result = this.repo.findById(id);
-        return result.map(SupplierModel::new);
+        Optional<ShipperEntity> result = this.repo.findById(id);
+        return result.map(ShipperModel::new);
     }
 
     @Override
-    public Optional<SupplierModel> save(SupplierModel model) {
+    public Optional<ShipperModel> save(ShipperModel model) {
         if(model == null) {
             return Optional.empty();
         }
-        SupplierEntity entity = new SupplierEntity(model);
+        ShipperEntity entity = new ShipperEntity(model);
         try {
             this.repo.save(entity);
-            return Optional.of(new SupplierModel(entity));
+            return Optional.of(new ShipperModel(entity));
         }catch (Exception e){
             log.error("Category save is failed, error: {}", e.getMessage());
             return Optional.empty();
@@ -55,12 +54,12 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
-    public Optional<SupplierModel> update(Long id, SupplierModel model) {
+    public Optional<ShipperModel> update(Long id, ShipperModel model) {
         if(id == 0) {
             return Optional.empty();
         }
 
-        SupplierEntity result = this.repo.findById(id).orElse(null);
+        ShipperEntity result = this.repo.findById(id).orElse(null);
         if(result == null){
             return Optional.empty();
         }
@@ -69,7 +68,7 @@ public class SupplierServiceImpl implements SupplierService {
         BeanUtils.copyProperties(model, result);
         try {
             this.repo.save(result);
-            return Optional.of(new SupplierModel(result));
+            return Optional.of(new ShipperModel(result));
         }catch (Exception e){
             log.error("Category update is failed, error: {}", e.getMessage());
             return Optional.empty();
@@ -77,19 +76,19 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
-    public Optional<SupplierModel> delete(Long id) {
+    public Optional<ShipperModel> delete(Long id) {
         if(id == 0) {
             return Optional.empty();
         }
 
-        SupplierEntity result = this.repo.findById(id).orElse(null);
+        ShipperEntity result = this.repo.findById(id).orElse(null);
         if(result == null){
             return Optional.empty();
         }
 
         try {
             this.repo.delete(result);
-            return Optional.of(new SupplierModel(result));
+            return Optional.of(new ShipperModel(result));
         }catch (Exception e){
             log.error("Category delete is failed, error: {}", e.getMessage());
             return Optional.empty();
